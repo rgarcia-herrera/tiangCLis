@@ -33,10 +33,29 @@
 (elephant:open-store '(:CLSQL (:SQLITE3 "/tmp/tianguis.sqlite")))
 
 
-;; Represent each game as an instance of the Elephant persistant class.
+
 (defpclass persistent-merchandise ()
   ((name :reader name :initarg :name :index t)
-   (quantity :accessor quantity :initarg :votes :initform 0 :index t)))
+   (description :accessor description)
+   (measure :accessor measure)))
+
+(defmethod str ((merchandise persistent-merchandise))
+            (format t "merchandise: ~s of ~s"
+                    (measure merchandise)
+                    (name merchandise)))
+
+(defpclass persistent-advertisement ()
+  ((title :reader title :initarg :name :index t)
+   (date-time :reader date-time)
+   (place :reader place)
+   (description :reader description)
+   (author :reader author)))
+
+(defpclass persistent-merchandise-in-ad ()
+  ((merchandise :reader merchandise)
+   (quantity :reader quantity)
+   (price :reader price)
+   (sale :reader sale)))
 
 
 
